@@ -1,5 +1,31 @@
-#employee-table th,
-td {
-  display: inline-block;
-  width: 16.575%;
+
+.jumbotron{
+    background-color: rgb(30, 30, 77);
+    color: white;
+    text-align: center;
+    border: 2px solid rgb(28, 110, 164); 
+
+}
+.card-header{
+    background-color: rgb(30, 30, 77);
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600
+
+}
+.card {
+    border: 2px solid rgb(28, 110, 164); 
+    font-weight: bolder;
+}
+.btn {
+    border: 2px solid rgb(28, 110, 164); 
+    background-color: rgb(30, 30, 77);
+}
+.header {
+    font-size: 75px
+}
+body{
+    background-image: url("trainImage.png");
+    background-size: 120em
 }

@@ -18,7 +18,7 @@ $("#add-route-btn").on("click", function(envent){
 var trainName = $("#train-name-input").val().trim();
 var trainDest = $("#dest-input").val().trim();
 var trainFreq = $("#freq-input").val().trim();
-var trainNext = $("#next-input").val().trim();
+var trainNext = moment($("#next-input").val().trim(), "h:mmss a").format("X");
     console.log(trainName);
     console.log(trainDest);
     console.log(trainFreq);
@@ -55,11 +55,40 @@ database.ref().on("child_added", function(childSnapshot) {
     console.log(trainFreq);
     console.log(trainNext)
 
+    var trainNextPretty = moment.unix(trainNext).format("h:mm a");
+
+    var trainNextConverted = moment(trainNextPretty, "h:mm a").subtract(1,"years");
+
+    var currentTime = moment();
+
+    var diffTime = moment().diff(moment(trainNextConverted), "minutes");
+
+    var tRemainder = diffTime % trainFreq;
+
+    var tMinutesTillTrain = trainFreq - tRemainder;
+
+    //var tMinutesTillTrainPretty = moment.unix(tMinutesTillTrain).format("h:mm a");
+
+    var nextTrain = currentTime + tMinutesTillTrain
+
+    var nextTrainPretty = moment.unix(nextTrain).format("h:mm a");
+
+    console.log(nextTrain)
+    console.log(tMinutesTillTrain);
+    console.log(tRemainder);
+    console.log(diffTime);
+    console.log(currentTime);
+    console.log(trainNextPretty);
+    console.log(trainNextConverted);
+    
+
     var newRow = $("<tr>").append(
         $("<td>").text(trainName),
         $("<td>").text(trainDest),
         $("<td>").text(trainFreq),
-        $("<td>").text(trainNext),
+        $("<td>").text(nextTrainPretty),
+        $("<td>").text(tMinutesTillTrain),
+        
     );
 
 $("#route-table > tbody").append(newRow)
